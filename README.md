@@ -24,7 +24,7 @@ Sockify is a sleek, real-time messaging application built with Node.js, Express,
 
 1.  Clone the repository:
    
-    git clone https://github.com/your-username/sockify.git
+    git clone https://github.com/Subhrajit-Deka-2007/Spokify.git
     cd sockify
     
 
