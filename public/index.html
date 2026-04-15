@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat App 💬</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Connection Status -->
+<div id="status" class="disconnected">
+    ● Disconnected
+</div>
+
+<!-- Login Modal -->
+<div id="loginArea">
+    <div class="login-box">
+        <h2>💬 Join Chat</h2>
+        <input
+            type="text"
+            id="usernameInput"
+            placeholder="Enter your name..."
+            maxlength="20"
+            onkeypress="if(event.key==='Enter') joinChat()"
+        >
+        <button onclick="joinChat()">Join Chat →</button>
+    </div>
+</div>
+
+<!-- Main App -->
+<div class="container">
+
+    <!-- Sidebar - Rooms + Online Users -->
+    <div class="sidebar">
+        <h3>Rooms</h3>
+        <button class="room-btn active" onclick="joinRoom('general')">
+            # General
+        </button>
+        <button class="room-btn" onclick="joinRoom('sports')">
+            # Sports
+        </button>
+        <button class="room-btn" onclick="joinRoom('tech')">
+            # Tech
+        </button>
+        <button class="room-btn" onclick="joinRoom('random')">
+            # Random
+        </button>
+
+        <h3 style="margin-top: 20px;">Online</h3>
+        <div id="onlineList"></div>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="chat-area">
+
+        <!-- Header -->
+        <div class="chat-header">
+            <div>
+                <strong id="currentRoom"># General</strong>
+            </div>
+            <div class="online-count" id="onlineUsers">
+                0 online
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div id="messages"></div>
+
+        <!-- Typing indicator -->
+        <div id="typing"></div>
+
+        <!-- Input -->
+        <div class="input-area">
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Type a message..."
+                onkeypress="handleKeyPress(event)"
+                oninput="handleTyping()"
+            >
+            <button class="send-btn" onclick="sendMessage()">
+                Send ➤
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Private Chat (DM) Panel -->
+    <div id="dmPanel">
+        <div class="dm-header">
+            <span id="dmTitle">Private Chat</span>
+            <button class="dm-close-btn" onclick="closeDM()">✕</button>
+        </div>
+        <div id="dmMessages"></div>
+
+        <!-- ✅ NEW: DM Typing Indicator -->
+        <div id="dmTyping"></div>
+
+        <div class="dm-input-area">
+            <input
+                type="text"
+                id="dmInput"
+                placeholder="Private message..."
+                onkeypress="handleDMKey(event)"
+                oninput="handleDMTyping()"
+            >
+            <!-- ✅ NEW: oninput="handleDMTyping()" added above -->
+            <button class="dm-send-btn" onclick="sendDM()">Send</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Socket.io client library (served automatically by server) -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
